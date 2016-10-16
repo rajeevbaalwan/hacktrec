@@ -20,7 +20,10 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import in.curience.hacktrec.Adapter.MenuAdapter;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.NfcTagUtils;
@@ -44,6 +47,8 @@ public class LandingActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
         menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
+        MenuAdapter adapter=new MenuAdapter(this,getData());
+        menuRecyclerView.setAdapter(adapter);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(LandingActivity.this));
         showNfcStatus();
         if (sharedPrefUtil.getTableId()!=-1){
@@ -51,6 +56,11 @@ public class LandingActivity extends AppCompatActivity {
         }
 
 
+    }
+    public List<MenuData> getData()
+    {
+       List<MenuData> data=new ArrayList<>();
+        return data;
     }
 
 

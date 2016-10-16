@@ -19,8 +19,16 @@ import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
-import java.net.URISyntaxException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
+import in.curience.hacktrec.Adapter.MenuAdapter;
+import in.curience.hacktrec.Models.MenuData;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.NfcTagUtils;
@@ -35,6 +43,7 @@ public class LandingActivity extends AppCompatActivity {
     private static final int RC_NFC = 574;
     private Socket socket;
     private RecyclerView menuRecyclerView;
+    private MenuAdapter menuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +54,10 @@ public class LandingActivity extends AppCompatActivity {
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
         menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(LandingActivity.this));
+        menuAdapter = new MenuAdapter(new ArrayList<MenuData>());
+        menuRecyclerView.setAdapter(menuAdapter);
         showNfcStatus();
-        if (sharedPrefUtil.getTableId()!=-1){
-            initialiseMenuSocket();
-        }
+        initialiseMenuSocket();
 
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
@@ -59,12 +68,20 @@ public class LandingActivity extends AppCompatActivity {
 
         socket.on(Constants.EVENT_MENU_RESPONSE, new Emitter.Listener() {
             @Override
-            public void call(Object... args) {
+            public void call(final Object... args) {
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+
+                        try{
+                            menuAdapter.changeList(getMenuFromJson(((JSONObject) args[0]).getJSONArray("menu")));
+                        }catch(JSONException e){
+                            Log.d(TAG,"Error in json parsing from sockets......");
+                        }
                         progressBar.setVisibility(View.GONE);
-                        UtilFunction.toastS(LandingActivity.this,"I Have Received the Menu");
+
                     }
                 });
 
@@ -99,7 +116,13 @@ public class LandingActivity extends AppCompatActivity {
         Log.d(TAG,data);
         sharedPrefUtil.setTableID(Integer.parseInt(data.substring(11,12)));
 
-       initialiseMenuSocket();
+        if(socket==null) {
+            initialiseMenuSocket();
+        }
+
+        if (socket!=null && !socket.connected()){
+            socket.connect();
+        }
 
 
     }
@@ -169,7 +192,24 @@ public class LandingActivity extends AppCompatActivity {
             socket.connect();
         }
 
+    }
 
+    private List<MenuData> getMenuFromJson(JSONArray jsonArray) throws JSONException{
+
+        List<MenuData> datas = new ArrayList<>();
+
+        for(int i=0;i<jsonArray.length();i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String imageUrl = jsonObject.getString("imageurl");
+            String name = jsonObject.getString("name");
+            String type = jsonObject.getString("type");
+            String price = jsonObject.getString("price");
+            int id = jsonObject.getInt("id");
+
+            datas.add(new MenuData(id,imageUrl,name,type,price));
+        }
+
+        return datas;
 
     }
 

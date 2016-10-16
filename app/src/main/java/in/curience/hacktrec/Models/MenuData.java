@@ -1,9 +1,11 @@
 package in.curience.hacktrec.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by RAJEEV YADAV on 10/16/2016.
  */
-public class MenuData {
+public class MenuData implements Serializable{
     private int id;
     private String imageUrl;
     private String itemName;

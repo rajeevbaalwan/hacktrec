@@ -1,24 +1,21 @@
 package in.curience.hacktrec.Activities;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import java.io.IOException;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import java.net.URISyntaxException;
 
 import in.curience.hacktrec.Adapter.ChatAdapter;
 import in.curience.hacktrec.Callbacks.MessageReceived;
@@ -31,7 +28,7 @@ import in.curience.hacktrec.Utility.UtilFunction;
 
 public class ChatActivity extends AppCompatActivity implements MessageReceived {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "ChatActivity";
     private RecyclerView messagesRecyclerView;
     private EditText messageEditText;
     private ImageButton sendMessageButton;
@@ -39,6 +36,8 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
     private ChatAdapter chatAdapter;
     private LinearLayoutManager linearLayoutManager;
     private DbHelper dbHelper;
+    private Socket socket;
+
 
 
 
@@ -46,6 +45,46 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        try {
+            socket = IO.socket("http://192.168.43.121:3000/");
+            socket.connect();
+            Log.d(TAG,"Connecting to socket server");
+
+        } catch (URISyntaxException e) {
+            Log.d(TAG,"error connecting to socket..");
+            e.printStackTrace();
+        }
+
+
+
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d(TAG,"Connection to socket established.");
+            }
+        });
+
+        socket.emit("update","hey my name is rahul");
+
+
+
+        socket.on(Constants.EVENT_RECEIVE_MESSAGE, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d(TAG,(String)args[0]);
+                final ChatMessage message = new ChatMessage((String)args[0],"wefd",Constants.IS_RECEIVED,Constants.TYPE_MESSAGE_TEXT);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        chatAdapter.addMessage(message);
+                    }
+                });
+                dbHelper.addMessageToDb(message);
+            }
+        });
+
 
         messagesRecyclerView = (RecyclerView) findViewById(R.id.chatMessagesRecyclerView);
         messageEditText = (EditText) findViewById(R.id.messageEditText);
@@ -58,6 +97,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         linearLayoutManager.setReverseLayout(true);
 
         chatAdapter = new ChatAdapter(ChatActivity.this,dbHelper.getCompleteChat());
+        Log.d(TAG,""+dbHelper.getCompleteChat().size());
         messagesRecyclerView.setLayoutManager(linearLayoutManager);
         messagesRecyclerView.setAdapter(chatAdapter);
 
@@ -69,11 +109,16 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
                 String message = messageEditText.getText().toString();
                 messageEditText.setText(null);
 
-                if (message.length()!=0 && message.startsWith("#")){
+                if (message.length()!=0){
 
                     chatAdapter.addMessage(new ChatMessage(message, UtilFunction.getCurrentTime(), Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
                     dbHelper.addMessageToDb(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
-                    //send message here
+                    socket.emit(Constants.EVENT_SEND_MESSAGE,message);
+
+                    if (!socket.connected()){
+                        socket.connect();
+                        Log.d(TAG,"Socket not connected");
+                    }
 
                 }
             }

@@ -50,7 +50,7 @@ public class UtilFunction {
     public static String getCurrentTime(){
         Calendar calendar  = Calendar.getInstance();
         Date date = calendar.getTime();
-        Log.d(TAG,date.toString());
+       // Log.d(TAG,date.toString());
         return date.toString();
 
     }

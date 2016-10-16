@@ -15,6 +15,8 @@ public class Constants {
     public static final String TYPE_MESSAGE_IMAGE = "image_message";
     public static final String TYPE_MESSAGE_VIDEO  = "video_message";
     public static final int RQ_GALLERY_IMAGE = 574;
+    public static final String EVENT_SEND_MESSAGE = "send_message";
+    public static final String EVENT_RECEIVE_MESSAGE = "receive_message";
 
 
 

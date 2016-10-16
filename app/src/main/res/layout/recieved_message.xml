@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:maxWidth="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start"
+    android:layout_marginRight="60dp"
+    android:layout_marginTop="5dp"
+    android:weightSum="1"
+    android:background="@drawable/bubble1"
+    android:layout_marginLeft="10dp"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/receivedMessageTextView"
+        android:textColor="@android:color/black"
+        android:text="Hey This is a from bot"/>
+
+    <ImageView
+        android:padding="1dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="8dp"
+        android:minWidth="500dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        android:id="@+id/receivedMessageImageView"
+        android:textColor="@android:color/black"
+        android:src="@drawable/ic_profile"/>
+
+    <WebView
+        android:visibility="gone"
+        android:padding="5dp"
+        android:minWidth="500dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/receivedMessageVideoView"
+        android:textColor="@android:color/black"
+        android:src="@drawable/ic_profile"/>
+
+
+
+
+</LinearLayout>

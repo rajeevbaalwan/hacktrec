@@ -37,7 +37,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
         holder.itemType.setText(data.get(position).getItemType());
 
 
-
     }
 
     @Override

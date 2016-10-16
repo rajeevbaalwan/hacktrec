@@ -10,6 +10,7 @@ public class Constants {
     public static final String IS_RECEIVED = "received";
 
     public static final int SENDER = 0;
+    public static int MODE = 0;
     public static final int RECEIVED = 1;
     public static final String TYPE_MESSAGE_TEXT  = "text_message";
     public static final String TYPE_MESSAGE_IMAGE = "image_message";
@@ -17,6 +18,8 @@ public class Constants {
     public static final int RQ_GALLERY_IMAGE = 574;
     public static final String EVENT_SEND_MESSAGE = "send_message";
     public static final String EVENT_RECEIVE_MESSAGE = "receive_message";
+    public static final String EVENT_GET_MENU = "menu_request";
+    public static final String EVENT_MENU_RESPONSE = "menu_response";
 
 
 

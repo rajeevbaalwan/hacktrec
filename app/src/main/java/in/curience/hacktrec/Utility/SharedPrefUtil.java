@@ -12,9 +12,13 @@ public class SharedPrefUtil {
     private SharedPreferences.Editor editor;
     private Context context;
     private final String TABLE_ID = "table_id";
+    private final String FILE_NAME = "shared_pref";
 
     public SharedPrefUtil(Context context) {
+
         this.context = context;
+        this.sharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE);
+        this.editor = sharedPreferences.edit();
     }
 
     public void setTableID(int tableID){

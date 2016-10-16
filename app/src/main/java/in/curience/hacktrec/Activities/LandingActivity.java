@@ -1,19 +1,28 @@
 package in.curience.hacktrec.Activities;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import java.net.URISyntaxException;
+
 import in.curience.hacktrec.R;
+import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.NfcTagUtils;
 import in.curience.hacktrec.Utility.SharedPrefUtil;
 import in.curience.hacktrec.Utility.UtilFunction;
@@ -24,6 +33,8 @@ public class LandingActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private SharedPrefUtil sharedPrefUtil;
     private static final int RC_NFC = 574;
+    private Socket socket;
+    private RecyclerView menuRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +43,14 @@ public class LandingActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
-
+        menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
+        menuRecyclerView.setLayoutManager(new LinearLayoutManager(LandingActivity.this));
         showNfcStatus();
+        if (sharedPrefUtil.getTableId()!=-1){
+            initialiseMenuSocket();
+        }
+
+
     }
 
 
@@ -41,7 +58,8 @@ public class LandingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(getIntent().getAction())  ){
+        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(getIntent().getAction())  && Constants.MODE==0){
+            Constants.MODE =1;
             processNfcTag(getIntent());
         }
 
@@ -59,9 +77,9 @@ public class LandingActivity extends AppCompatActivity {
         String data = NfcTagUtils.readTag(tag);
 
         Log.d(TAG,data);
-        sharedPrefUtil.setTableID(Integer.parseInt(data.substring(11)));
+        sharedPrefUtil.setTableID(Integer.parseInt(data.substring(11,12)));
 
-        //request for menu from socket server here....
+       initialiseMenuSocket();
 
 
     }
@@ -115,6 +133,33 @@ public class LandingActivity extends AppCompatActivity {
                     }
                 })
                 .create().show();
+    }
+
+    void initialiseMenuSocket(){
+
+        try{
+            socket = IO.socket("http://192.168.43.121:3000/");
+            socket.connect();
+            Log.d(TAG,"Connecting to Menu Socket Server");
+        }catch (URISyntaxException e){
+            e.printStackTrace();
+        }
+
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                socket.emit(Constants.EVENT_GET_MENU,sharedPrefUtil.getTableId());
+            }
+        });
+
+        socket.on(Constants.EVENT_MENU_RESPONSE, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                progressBar.setVisibility(View.GONE);
+                UtilFunction.toastS(LandingActivity.this,"I Have Received the Menu");
+            }
+        });
+
     }
 
 

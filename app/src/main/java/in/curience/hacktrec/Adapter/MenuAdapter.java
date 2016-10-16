@@ -1,14 +1,17 @@
 package in.curience.hacktrec.Adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
+import in.curience.hacktrec.Activities.SingleOrderItemActivity;
 import in.curience.hacktrec.Models.MenuData;
 import in.curience.hacktrec.R;
 
@@ -16,8 +19,6 @@ import in.curience.hacktrec.R;
  * Created by RAJEEV YADAV on 10/16/2016.
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder> {
-
-    private LayoutInflater inflater;
 
     private List<MenuData> data;
 
@@ -30,11 +31,20 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(final ItemViewHolder holder, int position) {
 
         holder.itemName.setText(data.get(position).getItemName());
         holder.itemPrice.setText(data.get(position).getItemPrice());
         holder.itemType.setText(data.get(position).getItemType());
+        final int pos = position;
+        holder.clickableLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.clickableLayout.getContext(), SingleOrderItemActivity.class);
+                intent.putExtra("details",data.get(pos));
+                holder.clickableLayout.getContext().startActivity(intent);
+            }
+        });
 
 
     }
@@ -48,12 +58,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
         private TextView itemName;
         private TextView itemType;
         private TextView itemPrice;
+        private LinearLayout clickableLayout;
         public ItemViewHolder(View itemView) {
             super(itemView);
             itemName= (TextView) itemView.findViewById(R.id.item_name);
             itemPic= (ImageView) itemView.findViewById(R.id.item_pic);
             itemType= (TextView) itemView.findViewById(R.id.item_type);
             itemPrice= (TextView) itemView.findViewById(R.id.item_price);
+            clickableLayout = (LinearLayout) itemView.findViewById(R.id.main_container);
         }
 
     }

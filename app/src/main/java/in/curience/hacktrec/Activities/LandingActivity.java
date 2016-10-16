@@ -20,10 +20,7 @@ import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
-import in.curience.hacktrec.Adapter.MenuAdapter;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.NfcTagUtils;
@@ -47,34 +44,47 @@ public class LandingActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
         menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
-        MenuAdapter adapter=new MenuAdapter(this,getData());
-        menuRecyclerView.setAdapter(adapter);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(LandingActivity.this));
         showNfcStatus();
         if (sharedPrefUtil.getTableId()!=-1){
             initialiseMenuSocket();
         }
 
+        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                socket.emit(Constants.EVENT_GET_MENU,sharedPrefUtil.getTableId());
+            }
+        });
 
-    }
-    public List<MenuData> getData()
-    {
-       List<MenuData> data=new ArrayList<>();
-        return data;
-    }
+        socket.on(Constants.EVENT_MENU_RESPONSE, new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        UtilFunction.toastS(LandingActivity.this,"I Have Received the Menu");
+                    }
+                });
 
+            }
+        });
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        if (socket!=null && !socket.connected()){
+            socket.connect();
+        }
         if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(getIntent().getAction())  && Constants.MODE==0){
             Constants.MODE =1;
             processNfcTag(getIntent());
         }
 
     }
-
 
     void processNfcTag(Intent intent){
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -155,20 +165,11 @@ public class LandingActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                socket.emit(Constants.EVENT_GET_MENU,sharedPrefUtil.getTableId());
-            }
-        });
+        if (!socket.connected()){
+            socket.connect();
+        }
 
-        socket.on(Constants.EVENT_MENU_RESPONSE, new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                progressBar.setVisibility(View.GONE);
-                UtilFunction.toastS(LandingActivity.this,"I Have Received the Menu");
-            }
-        });
+
 
     }
 

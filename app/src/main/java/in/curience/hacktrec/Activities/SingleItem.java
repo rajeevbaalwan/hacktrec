@@ -1,0 +1,113 @@
+package in.curience.hacktrec.Activities;
+
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
+
+import in.curience.hacktrec.Models.MenuData;
+import in.curience.hacktrec.R;
+import in.curience.hacktrec.Utility.Constants;
+import in.curience.hacktrec.Utility.SharedPrefUtil;
+
+public class SingleItem extends AppCompatActivity {
+
+    private int quantitySelected = 1;
+    private Spinner quantity;
+    private FloatingActionButton giveOrderButton;
+    private TextView itemPrice;
+    private EditText extraNeeds;
+    private TextView itemDescription;
+    private Socket socket;
+    private static final String TAG = "Single Item Act";
+    private SharedPrefUtil sharedPrefUtil;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_single_item);
+
+        final MenuData item = (MenuData) getIntent().getSerializableExtra("details");
+        setTitle(item.getItemName());
+
+        itemPrice = (TextView) findViewById(R.id.item_price);
+        itemDescription = (TextView) findViewById(R.id.item_description);
+        sharedPrefUtil = new SharedPrefUtil(SingleItem.this);
+
+        itemPrice.setText(item.getItemPrice());
+        itemDescription.setText(Html.fromHtml("<b>"+item.getItemName()+"</b> <br>   "+item.getItemType()));
+
+        initialiseOrderSocket();
+
+        quantity = (Spinner) findViewById(R.id.item_quantity);
+
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.item_quantity, android.R.layout.simple_spinner_dropdown_item);
+        quantity.setAdapter(adapter);
+
+        quantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                quantitySelected = position+1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+       giveOrderButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        giveOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!socket.connected()){
+                    socket.connect();
+                }
+                JSONObject jsonObject = new JSONObject();
+                try{
+                    jsonObject.put("id",item.getId());
+                    jsonObject.put("quantity",quantitySelected);
+                    jsonObject.put("tableid",sharedPrefUtil.getTableId());
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+                socket.emit(Constants.EVENT_SEND_ORDER,jsonObject);
+            }
+        });
+
+    }
+
+    void initialiseOrderSocket() {
+
+        try {
+            socket = IO.socket(Constants.SOCKETS_SERVER);
+            socket.connect();
+            Log.d(TAG, "Connecting to Order Socket Server");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        if (!socket.connected()) {
+            socket.connect();
+        }
+    }
+    }
+
+

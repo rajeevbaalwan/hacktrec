@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbars="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/orderd_item"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_description"
+            android:textSize="15dp"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+           />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:layout_weight="0.4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_quantity"
+                android:padding="5dp" />
+            <TextView
+                android:layout_marginLeft="100dp"
+                android:id="@+id/item_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Item PRICE"
+
+                android:layout_weight="0.6"
+                android:padding="10dp"
+                />
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <EditText
+                android:hint="Any Extra Demands"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/extraDemandsEditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            android:src="@drawable/send"
+            android:id="@+id/fab"/>
+    </LinearLayout>
+
+</ScrollView>

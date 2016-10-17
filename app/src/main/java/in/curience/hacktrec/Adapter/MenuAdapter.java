@@ -106,6 +106,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
     public int getItemCount() {
         return data.size();
     }
+
     protected class ItemViewHolder extends RecyclerView.ViewHolder{
         private ImageView itemPic;
         private TextView itemName;

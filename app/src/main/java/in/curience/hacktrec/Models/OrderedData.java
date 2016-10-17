@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by RAJEEV YADAV on 10/17/2016.
  */
-public class OrderedData implements Serializable {
+public class OrderedData  {
 
     String itemName;
     String itemQuantity;
     String itemPrice;
-    public OrderedData(String itemName,String itemQuantity,String itemPrice)
+   public OrderedData(String itemName,String itemQuantity,String itemPrice)
     {
         this.itemName=itemName;
         this.itemQuantity=itemQuantity;
@@ -20,9 +20,9 @@ public class OrderedData implements Serializable {
     {
         return this.itemName;
     }
-    String getItemQuantity()
+    public String getItemQuantity()
     {
-        return  itemQuantity;
+        return  this.itemQuantity;
     }
     public String getItemPrice()
     {

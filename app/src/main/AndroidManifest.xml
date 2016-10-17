@@ -18,12 +18,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.ChatActivity" />
         <activity android:name=".Activities.LandingActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
 
@@ -37,7 +38,9 @@
         <activity
             android:name=".Activities.SingleItem"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Activities.OrdersActivity"></activity>
+        <activity android:name=".Activities.OrdersActivity">
+
+        </activity>
     </application>
 
 </manifest>

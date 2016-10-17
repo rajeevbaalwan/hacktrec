@@ -10,11 +10,50 @@
     <string name="type_message">Type Your Message</string>
     <string name="send_message">Send Message</string>
     <string name="send_image">Send Image</string>
-    <string-array name="item_quantity">
+    <string name="tax_value">Tax Value</string>
+    <string-array name="spinner">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
     </string-array>
+    <string-array name="item_quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="name">
+        <item>"garam doodh"</item>
+        <item>"thanda doodh"</item>
+        <item>"sada doodh"</item>
+        <item>"insaani doodh"</item>
+        <item>"gadhi ka doodh"</item>
+        <item>"sherni ka doodh"</item>
+        <item>"bobey deol"</item>
+        <item>"sunny leone's milk"</item>
+        <item>"bsdbbsvbh"</item>
+        <item>"bsdbbsvbh"</item>
+    </string-array>
+    <string-array name="price">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+    </string-array>
+
+
 </resources>

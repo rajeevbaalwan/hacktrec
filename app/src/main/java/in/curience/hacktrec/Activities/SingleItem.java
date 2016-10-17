@@ -1,5 +1,6 @@
 package in.curience.hacktrec.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,7 +58,7 @@ public class SingleItem extends AppCompatActivity {
 
         quantity = (Spinner) findViewById(R.id.item_quantity);
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.item_quantity, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_dropdown_item);
         quantity.setAdapter(adapter);
 
         quantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -76,6 +77,7 @@ public class SingleItem extends AppCompatActivity {
         giveOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 if (!socket.connected()){
                     socket.connect();

@@ -20,6 +20,7 @@ public class Constants {
     public static final String EVENT_RECEIVE_MESSAGE = "receive_message";
     public static final String EVENT_GET_MENU = "menu_request";
     public static final String EVENT_MENU_RESPONSE = "menu_response";
+    public static final String EVENT_SEND_ORDER = "send_order";
 
 
 

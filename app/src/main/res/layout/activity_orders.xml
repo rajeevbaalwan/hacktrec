@@ -124,7 +124,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="BRING CHECK"
+        android:text="BRING CHECK ✔"
         android:textColor="@android:color/white"
         android:textSize="22dp"
         android:layout_marginTop="10dp"

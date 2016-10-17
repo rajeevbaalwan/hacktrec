@@ -45,6 +45,7 @@ public class LandingActivity extends AppCompatActivity {
     private MenuAdapter menuAdapter;
     private LinearLayout formLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

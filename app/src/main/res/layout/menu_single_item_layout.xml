@@ -8,13 +8,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id ="@+id/progressBar"
+                android:layout_centerInParent="true"/>
+
         <ImageView
 
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/menu"
+
             android:padding="5dp"
             android:id="@+id/item_pic"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:padding="5dp"

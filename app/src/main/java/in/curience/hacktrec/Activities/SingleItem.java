@@ -83,6 +83,7 @@ public class SingleItem extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject();
                 try{
                     jsonObject.put("id",item.getId());
+                    jsonObject.put("itemname",item.getItemName());
                     jsonObject.put("quantity",quantitySelected);
                     jsonObject.put("tableid",sharedPrefUtil.getTableId());
                     jsonObject.put("extras",extraNeeds.getText().toString());

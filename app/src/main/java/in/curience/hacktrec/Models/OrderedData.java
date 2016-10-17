@@ -20,9 +20,13 @@ public class OrderedData implements Serializable {
     {
         return this.itemName;
     }
+    String getItemQuantity()
+    {
+        return  itemQuantity;
+    }
     public String getItemPrice()
     {
-        return this.itemQuantity
+        return this.itemPrice;
     }
 
 }

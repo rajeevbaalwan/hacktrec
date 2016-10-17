@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -42,6 +43,7 @@ public class LandingActivity extends AppCompatActivity {
     private Socket socket;
     private RecyclerView menuRecyclerView;
     private MenuAdapter menuAdapter;
+    private LinearLayout formLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,14 @@ public class LandingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing);
 
         setTitle("Menu");
+        formLayout = (LinearLayout) findViewById(R.id.form);
+        formLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LandingActivity.this,ChatActivity.class);
+                startActivity(intent);
+            }
+        });
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
         menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
@@ -92,6 +102,10 @@ public class LandingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        if (socket==null){
+            initialiseMenuSocket();
+        }
+
         if (socket!=null && !socket.connected()){
             socket.connect();
         }
@@ -100,6 +114,12 @@ public class LandingActivity extends AppCompatActivity {
             processNfcTag(getIntent());
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG,"On Pause is called");
     }
 
     void processNfcTag(Intent intent){
@@ -216,11 +236,14 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_landng,menu);
+        MenuItem item = menu.getItem(0);
+        item.setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
 
         switch (item.getItemId()){
             case R.id.startChat:
@@ -234,5 +257,10 @@ public class LandingActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startChat(View v){
+        Intent intent = new Intent(LandingActivity.this,ChatActivity.class);
+        startActivity(intent);
     }
 }

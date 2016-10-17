@@ -46,11 +46,12 @@ public class LandingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
+        setTitle("Menu");
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         sharedPrefUtil = new SharedPrefUtil(LandingActivity.this);
         menuRecyclerView = (RecyclerView) findViewById(R.id.menuRecyclerView);
         menuRecyclerView.setLayoutManager(new LinearLayoutManager(LandingActivity.this));
-        menuAdapter = new MenuAdapter(new ArrayList<MenuData>());
+        menuAdapter = new MenuAdapter(LandingActivity.this,new ArrayList<MenuData>());
         menuRecyclerView.setAdapter(menuAdapter);
         showNfcStatus();
         initialiseMenuSocket();
@@ -177,7 +178,7 @@ public class LandingActivity extends AppCompatActivity {
     void initialiseMenuSocket(){
 
         try{
-            socket = IO.socket("http://192.168.43.121:3000/");
+            socket = IO.socket(Constants.SOCKETS_SERVER);
             socket.connect();
             Log.d(TAG,"Connecting to Menu Socket Server");
         }catch (URISyntaxException e){

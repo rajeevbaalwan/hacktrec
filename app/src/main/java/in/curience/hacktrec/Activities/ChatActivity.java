@@ -48,7 +48,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
 
 
         try {
-            socket = IO.socket("http://192.168.43.121:3000/");
+            socket = IO.socket(Constants.SOCKETS_SERVER);
             socket.connect();
             Log.d(TAG,"Connecting to socket server");
 

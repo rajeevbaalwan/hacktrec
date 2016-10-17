@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trip  Bot</string>
+    <string name="app_name">HackTrec</string>
     <string name="title_activity_new">New</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

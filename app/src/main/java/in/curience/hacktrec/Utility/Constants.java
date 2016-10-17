@@ -8,7 +8,7 @@ public class Constants {
 
     public static final String IS_SENDED = "sended";
     public static final String IS_RECEIVED = "received";
-
+    public static final String SOCKETS_SERVER = "http://192.168.43.121:3000/";
     public static final int SENDER = 0;
     public static int MODE = 0;
     public static final int RECEIVED = 1;

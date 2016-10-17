@@ -1,5 +1,6 @@
 package in.curience.hacktrec.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import in.curience.hacktrec.Activities.SingleOrderItemActivity;
+import in.curience.hacktrec.Activities.SingleItem;
 import in.curience.hacktrec.Models.MenuData;
 import in.curience.hacktrec.R;
 
@@ -21,9 +22,11 @@ import in.curience.hacktrec.R;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder> {
 
     private List<MenuData> data;
+    private Context context;
 
-    public  MenuAdapter(List<MenuData> data) {
+    public  MenuAdapter(Context context,List<MenuData> data) {
         this.data=data;
+        this.context=context;
     }
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,9 +43,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
         holder.clickableLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(holder.clickableLayout.getContext(), SingleOrderItemActivity.class);
+                Intent intent = new Intent(context.getApplicationContext(), SingleItem.class);
                 intent.putExtra("details",data.get(pos));
-                holder.clickableLayout.getContext().startActivity(intent);
+                context.startActivity(intent);
             }
         });
 

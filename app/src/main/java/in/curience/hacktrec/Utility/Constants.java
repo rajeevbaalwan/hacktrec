@@ -21,6 +21,7 @@ public class Constants {
     public static final String EVENT_GET_MENU = "menu_request";
     public static final String EVENT_MENU_RESPONSE = "menu_response";
     public static final String EVENT_SEND_ORDER = "send_order";
+    public static final String EVENT_PAYMENT_REQUEST = "user_payment_request";
 
 
 

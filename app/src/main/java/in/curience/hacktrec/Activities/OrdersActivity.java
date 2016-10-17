@@ -1,6 +1,8 @@
 package in.curience.hacktrec.Activities;
 
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,6 +52,12 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Snackbar.make(v,"Your bill is on the way...",Snackbar.LENGTH_SHORT).setAction("DONE", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).show();
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("tableid", sharedPrefUtil.getTableId());
@@ -62,6 +70,7 @@ public class OrdersActivity extends AppCompatActivity {
 
 
     }
+
     public List<OrderedData> getData()
     {    List<OrderedData>list = new ArrayList();
          String[] itemName=getResources().getStringArray(R.array.name);

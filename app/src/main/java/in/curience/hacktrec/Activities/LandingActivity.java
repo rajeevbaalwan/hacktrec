@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import com.github.nkzawa.emitter.Emitter;
@@ -211,4 +213,26 @@ public class LandingActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_landng,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.startChat:
+                Intent intent = new Intent(LandingActivity.this,ChatActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.myorders:
+                Intent intent1 = new Intent(LandingActivity.this,OrdersActivity.class);
+                startActivity(intent1);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

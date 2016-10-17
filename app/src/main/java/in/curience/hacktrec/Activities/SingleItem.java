@@ -49,7 +49,7 @@ public class SingleItem extends AppCompatActivity {
         itemPrice = (TextView) findViewById(R.id.item_price);
         itemDescription = (TextView) findViewById(R.id.item_description);
         sharedPrefUtil = new SharedPrefUtil(SingleItem.this);
-
+        extraNeeds = (EditText)  findViewById(R.id.extraDemandsEditText);
         itemPrice.setText(item.getItemPrice());
         itemDescription.setText(Html.fromHtml("<b>"+item.getItemName()+"</b> <br>   "+item.getItemType()));
 
@@ -85,9 +85,13 @@ public class SingleItem extends AppCompatActivity {
                     jsonObject.put("id",item.getId());
                     jsonObject.put("quantity",quantitySelected);
                     jsonObject.put("tableid",sharedPrefUtil.getTableId());
+                    jsonObject.put("extras",extraNeeds.getText().toString());
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
+
+                Log.d(TAG,"sending order");
+                extraNeeds.setText("");
                 socket.emit(Constants.EVENT_SEND_ORDER,jsonObject);
             }
         });

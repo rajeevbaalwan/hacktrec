@@ -33,8 +33,10 @@
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
-        <activity android:name=".Activities.SingleItem"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".Activities.SingleItem"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activities.OrdersActivity"></activity>
     </application>
 
 </manifest>

@@ -58,10 +58,12 @@ public class OrdersActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Snackbar.make(v,"Your bill is on the way...",Snackbar.LENGTH_SHORT).setAction("DONE", new View.OnClickListener() {
+                Snackbar.make(v,"Your bill is on the way...",Snackbar.LENGTH_INDEFINITE).setAction("DONE", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        sharedPrefUtil.clearData();
                         OrdersActivity.this.finish();
+
                     }
                 }).show();
                 JSONObject jsonObject = new JSONObject();

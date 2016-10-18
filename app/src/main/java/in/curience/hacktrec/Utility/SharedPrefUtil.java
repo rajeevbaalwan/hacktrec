@@ -8,8 +8,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-import in.curience.hacktrec.Models.MenuData;
 import in.curience.hacktrec.Models.OrderedData;
 
 /**
@@ -55,13 +55,15 @@ public class SharedPrefUtil {
     }
 
     public void putOrderList(OrderedData data){
-        String updated = gson.toJson(getOrdersList().add(data));
+        ArrayList<OrderedData> list = getOrdersList();
+        list.add(data);
+        String updated = gson.toJson(list);
         editor.putString(ORDERS_LIST,updated).commit();
 
     }
 
     public ArrayList<OrderedData> getOrdersList(){
-        String json = sharedPreferences.getString(ORDERS_LIST,null);
+        String json = sharedPreferences.getString(ORDERS_LIST,"");
         Type type = new TypeToken<ArrayList<OrderedData>>(){}.getType();
         ArrayList<OrderedData> list = gson.fromJson(json,type);
         return list;

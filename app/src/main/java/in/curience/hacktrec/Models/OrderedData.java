@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 public class OrderedData  {
 
-    String itemName;
-    String itemQuantity;
-    String itemPrice;
+    private String itemName;
+    private String itemQuantity;
+    private String itemPrice;
    public OrderedData(String itemName,String itemQuantity,String itemPrice)
     {
         this.itemName=itemName;

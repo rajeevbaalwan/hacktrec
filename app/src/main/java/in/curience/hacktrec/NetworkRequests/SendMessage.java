@@ -2,8 +2,6 @@ package in.curience.hacktrec.NetworkRequests;
 
 import android.util.Log;
 
-import com.squareup.okhttp.Call;
-
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -16,7 +14,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import in.curience.hacktrec.Callbacks.MessageReceived;
-
 import in.curience.hacktrec.Models.ChatMessage;
 import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.UtilFunction;

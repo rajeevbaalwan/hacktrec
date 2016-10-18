@@ -47,9 +47,6 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-
-
-
         try {
             socket = IO.socket(Constants.SOCKETS_SERVER);
             socket.connect();

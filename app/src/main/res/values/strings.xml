@@ -11,6 +11,16 @@
     <string name="send_message">Send Message</string>
     <string name="send_image">Send Image</string>
     <string name="tax_value">Tax Value</string>
+    <string name="sub_total">Sub Total :</string>
+    <string name="sub_amount">Sub Amount</string>
+    <string name="tax">Tax :</string>
+    <string name="total">TOTAL :</string>
+    <string name="amount">Amount</string>
+    <string name="bring_check">BRING CHECK ✔</string>
+    <string name="name">Name</string>
+    <string name="quantity">Quant</string>
+    <string name="price">Price</string>
+    <string name="rupee">₹ </string>
     <string-array name="spinner">
         <item>1</item>
         <item>2</item>

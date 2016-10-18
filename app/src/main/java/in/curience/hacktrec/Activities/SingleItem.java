@@ -103,7 +103,7 @@ public class SingleItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sharedPrefUtil.putOrderList(new OrderedData(item.getItemName(),String.valueOf(quantitySelected),item.getItemPrice()));
-
+                  OrdersActivity.taxValue=30;
                 if (!socket.connected()){
                     socket.connect();
                 }

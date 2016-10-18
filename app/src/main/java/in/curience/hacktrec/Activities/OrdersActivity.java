@@ -36,6 +36,9 @@ public class OrdersActivity extends AppCompatActivity {
     private TextView subTotal;
     private TextView tax;
     private TextView totalAmount;
+    public static  int taxValue=0;
+
+
 
 
     @Override
@@ -43,7 +46,7 @@ public class OrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
         initialisePaymentSocket();
-
+           setTitle("My Order");
         subTotal = (TextView) findViewById(R.id.order_sub_total_amount);
         tax = (TextView) findViewById(R.id.order_tax);
         totalAmount = (TextView) findViewById(R.id.total_amount);
@@ -61,6 +64,9 @@ public class OrdersActivity extends AppCompatActivity {
                 Snackbar.make(v,"Your bill is on the way...",Snackbar.LENGTH_INDEFINITE).setAction("DONE", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        taxValue=0;
+                        tax.setText("₹ "+taxValue);
+                        totalAmount.setText("₹ "+taxValue);
                         sharedPrefUtil.clearData();
                         OrdersActivity.this.finish();
 
@@ -103,8 +109,9 @@ public class OrdersActivity extends AppCompatActivity {
             total+= Integer.parseInt(datas.get(i).getItemPrice()) * Integer.parseInt(datas.get(i).getItemQuantity());
         }
 
-        subTotal.setText(""+total);
-        tax.setText(""+30);
-        totalAmount.setText(""+(total+30));
+          subTotal.setText("₹ " + total);
+          tax.setText("₹ " + taxValue);
+          totalAmount.setText("₹ " + (total + taxValue));
+
     }
 }

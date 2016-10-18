@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sub Amount"
+            android:text="@string/sub_amount"
             android:padding="5dp"
             android:layout_marginTop="2dp"
             android:layout_marginRight="5dp"
@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sub Total :"
+            android:text="@string/sub_total"
             android:padding="5dp"
             android:layout_marginTop="2dp"
             android:id="@+id/order_sub_total"
@@ -113,8 +113,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Amount"
+            android:text="@string/amount"
             android:padding="5dp"
+            android:textStyle="bold"
+            android:textSize="17sp"
             android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
             android:layout_below="@id/order_tax"
@@ -124,14 +126,14 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_toLeftOf="@id/total_amount"
-            android:text="TOTAL :"
+            android:text="@string/total"
             android:layout_below="@id/Tax"
             android:layout_alignRight="@id/Tax"/>
     </RelativeLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BRING CHECK ✔"
+        android:text="@string/bring_check"
         android:textColor="@android:color/white"
         android:textSize="22dp"
         android:id="@+id/startPaymentRequest"

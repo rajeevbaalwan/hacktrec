@@ -7,11 +7,12 @@
         app:showAsAction="always"
         android:id="@+id/startChat"
         android:title="chat"
-        android:icon="@android:drawable/ic_menu_send"/>
+        android:icon="@android:drawable/ic_menu_send"
+        />
     <item
         android:orderInCategory="2"
         android:id="@+id/myorders"
         app:showAsAction="always"
-        android:title="chat"
-        android:icon="@android:drawable/ic_media_play"/>
+        android:title="my_order"
+        android:icon="@drawable/my_order"/>
 </menu>

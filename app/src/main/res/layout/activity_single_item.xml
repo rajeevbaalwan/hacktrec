@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="Item PRICE"
-
+                android:gravity="center"
                 android:layout_weight="0.6"
                 android:padding="10dp"
                 />
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/extraDemandsEditText"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp" />
         </android.support.design.widget.TextInputLayout>
 
 

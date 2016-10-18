@@ -23,15 +23,17 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 
 import in.curience.hacktrec.Models.MenuData;
+import in.curience.hacktrec.Models.OrderedData;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.SharedPrefUtil;
+import in.curience.hacktrec.Utility.UtilFunction;
 
 public class SingleItem extends AppCompatActivity {
 
     private int quantitySelected = 1;
     private Spinner quantity;
-    private FloatingActionButton giveOrderButton;
+    private Button giveOrderButton;
     private TextView itemPrice;
     private EditText extraNeeds;
     private TextView itemDescription;
@@ -72,12 +74,12 @@ public class SingleItem extends AppCompatActivity {
 
             }
         });
-       giveOrderButton = (FloatingActionButton) findViewById(R.id.fab);
+       giveOrderButton = (Button) findViewById(R.id.fab);
 
         giveOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                sharedPrefUtil.putOrderList(new OrderedData(item.getItemName(),String.valueOf(quantitySelected),item.getItemPrice()));
 
                 if (!socket.connected()){
                     socket.connect();
@@ -96,6 +98,8 @@ public class SingleItem extends AppCompatActivity {
                 Log.d(TAG,"sending order");
                 extraNeeds.setText("");
                 socket.emit(Constants.EVENT_SEND_ORDER,jsonObject);
+                UtilFunction.toastS(SingleItem.this,"Your Order is placed");
+                SingleItem.this.finish();
             }
         });
 

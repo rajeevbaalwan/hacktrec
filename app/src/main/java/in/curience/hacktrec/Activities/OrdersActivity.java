@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.github.nkzawa.socketio.client.IO;
@@ -35,6 +36,9 @@ public class OrdersActivity extends AppCompatActivity {
     private static final String TAG = "OrdersActivity";
     private Button paymentRequest;
     private SharedPrefUtil sharedPrefUtil;
+    private TextView subTotal;
+    private TextView tax;
+    private TextView totalAmount;
 
 
     @Override
@@ -42,12 +46,17 @@ public class OrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
         initialisePaymentSocket();
+
+        subTotal = (TextView) findViewById(R.id.order_sub_total_amount);
+        tax = (TextView) findViewById(R.id.order_tax);
+        totalAmount = (TextView) findViewById(R.id.total_amount);
         sharedPrefUtil = new SharedPrefUtil(OrdersActivity.this);
         orderRecyclerView= (RecyclerView) findViewById(R.id.order_recycler_view);
         orderRecyclerView.setLayoutManager(new LinearLayoutManager(OrdersActivity.this));
-        orderAdapter=new OrderedItemAdapter(OrdersActivity.this,getData());
+        orderAdapter=new OrderedItemAdapter(OrdersActivity.this,this.sharedPrefUtil.getOrdersList());
         orderRecyclerView.setAdapter(orderAdapter);
         paymentRequest = (Button) findViewById(R.id.startPaymentRequest);
+        getTotalAndSetViews();
         paymentRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +64,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Snackbar.make(v,"Your bill is on the way...",Snackbar.LENGTH_SHORT).setAction("DONE", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        finish();
+                        OrdersActivity.this.finish();
                     }
                 }).show();
                 JSONObject jsonObject = new JSONObject();
@@ -71,19 +80,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     }
 
-    public List<OrderedData> getData()
-    {    List<OrderedData>list = new ArrayList();
-         String[] itemName=getResources().getStringArray(R.array.name);
-         String[] itemAmount=getResources().getStringArray(R.array.price);
-         String[] itemQuantity=getResources().getStringArray(R.array.item_quantity);
-        for(int i=0;i<10;i++)
-        {
-          list.add(new OrderedData(itemName[i],itemQuantity[i],itemAmount[i]));
 
-        }
-
-        return list;
-    }
 
     void initialisePaymentSocket() {
 
@@ -98,5 +95,17 @@ public class OrdersActivity extends AppCompatActivity {
         if (!socket.connected()) {
             socket.connect();
         }
+    }
+
+    public void getTotalAndSetViews(){
+        List<OrderedData> datas = sharedPrefUtil.getOrdersList();
+        int total = 0;
+        for(int i=0;i<datas.size();i++){
+            total+= Integer.parseInt(datas.get(i).getItemPrice()) * Integer.parseInt(datas.get(i).getItemQuantity());
+        }
+
+        subTotal.setText(""+total);
+        tax.setText(""+30);
+        totalAmount.setText(""+(total+30));
     }
 }

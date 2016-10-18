@@ -1,6 +1,8 @@
 package in.curience.hacktrec.Utility;
 
 
+import com.squareup.okhttp.MediaType;
+
 /**
  * Created by Brekkishhh on 24-08-2016.
  */
@@ -22,6 +24,8 @@ public class Constants {
     public static final String EVENT_MENU_RESPONSE = "menu_response";
     public static final String EVENT_SEND_ORDER = "send_order";
     public static final String EVENT_PAYMENT_REQUEST = "user_payment_request";
+    public static final MediaType TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+
 
 
 

@@ -34,7 +34,7 @@ public class SendMessage {
     public void sendMessageToBot(final String messageBody, final MessageReceived messageReceived){
 
         Request request = new Request.Builder()
-                .url("http://drivesmart.herokuapp.com/guidebot?q="+messageBody.substring(1))
+                .url("http://drivesmart.herokuapp.com/guidebot?q="+messageBody)
                 .get()
                 .build();
 

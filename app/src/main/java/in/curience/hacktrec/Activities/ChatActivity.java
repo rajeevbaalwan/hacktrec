@@ -21,6 +21,7 @@ import in.curience.hacktrec.Adapter.ChatAdapter;
 import in.curience.hacktrec.Callbacks.MessageReceived;
 import in.curience.hacktrec.Db.DbHelper;
 import in.curience.hacktrec.Models.ChatMessage;
+import in.curience.hacktrec.NetworkRequests.SendMessage;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
 import in.curience.hacktrec.Utility.UtilFunction;
@@ -37,6 +38,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
     private LinearLayoutManager linearLayoutManager;
     private DbHelper dbHelper;
     private Socket socket;
+    private SendMessage sendMessage;
 
 
 
@@ -47,6 +49,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        sendMessage  = new SendMessage();
         try {
             socket = IO.socket(Constants.SOCKETS_SERVER);
             socket.connect();
@@ -73,7 +76,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         socket.on(Constants.EVENT_RECEIVE_MESSAGE, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.d(TAG,(String)args[0]);
+              /*  Log.d(TAG,(String)args[0]);
                 final ChatMessage message = new ChatMessage((String)args[0],"wefd",Constants.IS_RECEIVED,Constants.TYPE_MESSAGE_TEXT);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -81,7 +84,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
                         chatAdapter.addMessage(message);
                     }
                 });
-                dbHelper.addMessageToDb(message);
+                dbHelper.addMessageToDb(message);*/
             }
         });
 
@@ -113,13 +116,10 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
 
                     chatAdapter.addMessage(new ChatMessage(message, UtilFunction.getCurrentTime(), Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
                     dbHelper.addMessageToDb(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
-                    socket.emit(Constants.EVENT_SEND_MESSAGE,message);
 
-                    if (!socket.connected()){
-                        socket.connect();
-                        Log.d(TAG,"Socket not connected");
-                    }
 
+                    sendMessage.sendMessageToBot(message+"_text",ChatActivity.this);
+                    sendMessage.sendMessageToBot(message+"_image",ChatActivity.this);
                 }
             }
         });

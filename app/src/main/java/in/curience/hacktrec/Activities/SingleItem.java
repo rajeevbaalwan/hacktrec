@@ -1,5 +1,7 @@
 package in.curience.hacktrec.Activities;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -9,15 +11,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.net.URISyntaxException;
 
 import in.curience.hacktrec.Models.MenuData;
@@ -35,9 +44,12 @@ public class SingleItem extends AppCompatActivity {
     private TextView itemPrice;
     private EditText extraNeeds;
     private TextView itemDescription;
+    private ImageView singleItemImage;
     private Socket socket;
     private static final String TAG = "Single Item Act";
     private SharedPrefUtil sharedPrefUtil;
+    private ImageLoader imageLoader;
+    private DisplayImageOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +59,19 @@ public class SingleItem extends AppCompatActivity {
         final MenuData item = (MenuData) getIntent().getSerializableExtra("details");
         setTitle(item.getItemName());
 
+        this.imageLoader = ImageLoader.getInstance();
+        this.options = new DisplayImageOptions.Builder()
+                .showImageOnFail(android.R.drawable.alert_dark_frame)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+
+        initImageLoader(SingleItem.this);
+
+        singleItemImage = (ImageView) findViewById(R.id.singleItemImage);
+        imageLoader.displayImage(item.getImageUrl(),singleItemImage,options);
         itemPrice = (TextView) findViewById(R.id.item_price);
         itemDescription = (TextView) findViewById(R.id.item_description);
         sharedPrefUtil = new SharedPrefUtil(SingleItem.this);
@@ -116,6 +141,40 @@ public class SingleItem extends AppCompatActivity {
         if (!socket.connected()) {
             socket.connect();
         }
+    }
+
+    public void initImageLoader(Context context){
+
+        File cacheDir;
+        ImageLoaderConfiguration config;
+        DisplayImageOptions options;
+
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)){
+            cacheDir = new File(android.os.Environment.getExternalStorageDirectory(),"JunkFolder");}
+        else{
+            cacheDir=context.getCacheDir();}
+        if(!cacheDir.exists()){
+            cacheDir.mkdirs();}
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnFail(R.drawable.abc_textfield_activated_mtrl_alpha)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+
+        config = new ImageLoaderConfiguration.Builder(context)
+                .memoryCache(new WeakMemoryCache())
+                .denyCacheImageMultipleSizesInMemory()
+                .threadPoolSize(5)
+                .defaultDisplayImageOptions(options)
+                .build();
+
+        imageLoader.init(config);
     }
     }
 

@@ -5,14 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:scrollbars="vertical">
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/singleItemImage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
 
             />
 
@@ -20,16 +22,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/item_description"
-            android:textSize="15dp"
+            android:textSize="18dp"
+
             android:padding="10dp"
             android:layout_gravity="center"
             android:gravity="center"
            />
 
+        <View
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c0c0c0"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Quantity :"/>
 
             <Spinner
                 android:layout_weight="0.4"
@@ -41,13 +61,17 @@
                 android:layout_marginLeft="100dp"
                 android:id="@+id/item_price"
                 android:layout_width="0dp"
+                android:textSize="19sp"
+                android:textStyle="bold"
                 android:layout_height="match_parent"
                 android:text="Item PRICE"
                 android:gravity="center"
-                android:layout_weight="0.6"
+                android:layout_weight="0.4"
                 android:padding="10dp"
                 />
         </LinearLayout>
+
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_height="wrap_content"
@@ -66,7 +90,39 @@
 
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/linearLayout"
+        android:layout_above="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/showDescription"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="#55000000"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selector_transparent_button"
+            android:text="@string/desc"
+            android:padding="10dp"/>
+
+        <TextView
+            android:typeface="serif"
+            android:visibility="gone"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:gravity="fill"
+            android:id="@+id/actualDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
     <Button
+
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

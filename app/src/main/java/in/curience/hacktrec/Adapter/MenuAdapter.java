@@ -61,14 +61,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ItemViewHolder holder, int position) {
+    public void onBindViewHolder(final ItemViewHolder holder, final int position) {
 
         holder.progressBar.setVisibility(View.GONE);
         holder.itemPrice.setVisibility(View.VISIBLE);
 
         holder.itemName.setText(data.get(position).getItemName());
         holder.itemName.setTypeface(UtilFunction.setNewTextStyle(context));
-        holder.itemPrice.setText(""+data.get(position).getItemPrice());
+        holder.itemPrice.setText("₹ "+data.get(position).getItemPrice());
         holder.itemType.setText(data.get(position).getItemType());
         holder.ratingText.setText("Rating :"+data.get(position).getItemRating());
         holder.cookingTime.setText("Cooking Time :"+data.get(position).getAvgTime());
@@ -80,6 +80,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context.getApplicationContext(), SingleItem.class);
                 intent.putExtra("details",data.get(pos));
+                intent.putExtra("pos",pos);
                 context.startActivity(intent);
             }
         });

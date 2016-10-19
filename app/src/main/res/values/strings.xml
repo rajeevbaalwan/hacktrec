@@ -9,12 +9,13 @@
     <string name="action_settings">Settings</string>
     <string name="type_message">Type Your Message</string>
     <string name="send_message">Send Message</string>
+    <string name="desc">Description</string>
     <string name="send_image">Send Image</string>
     <string name="tax_value">Tax Value</string>
     <string name="sub_total">Sub Total :</string>
     <string name="sub_amount">Sub Amount</string>
     <string name="tax">Tax :</string>
-    <string name="total">TOTAL :</string>
+    <string name="total">TOTAL :  </string>
     <string name="amount">Amount</string>
     <string name="bring_check">BRING CHECK ✔</string>
     <string name="name">Name</string>
@@ -63,6 +64,203 @@
         <item>80</item>
         <item>90</item>
         <item>100</item>
+    </string-array>
+
+    <string-array name="descarr">
+        <item>Green chillies - slitted from center
+Fine chopped  garlic
+Chopped small onion
+Sliced white spring onions
+Peeled and sliced carrot
+Sliced green bell pepper capsicum
+Shredded cup cabbage
+Cauliflower florets
+Spring onions (green) for garnishing
+</item>
+        <item>Cabbage (grated)
+Carrot (grated)
+Capsicum (grated)
+Green chilly  (finely chopped)
+Black pepper - 2 pinch
+Corn flour
+Green coriander (finely chopped)
+Ginger (grated)
+Green chilly (finely chopped)
+Soya sauce
+)</item>
+        <item>All purpose flour
+Oil
+Salt to taste
+For vegetable filling:
+Cabbage ( finely chopped)
+Carrot  (finely chopped)
+Onion ( finely chopped)
+Green chilies (finely minced)
+Garlic (finely minced)
+</item>
+        <item>Spring onions thinly sliced
+Onion thinly sliced
+Carrots cut into thin strips
+Green capsicum cut into thin strips
+Cabbage finely shredded
+Oil 2 tablespoon
+Salt to taste</item>
+        <item>Urad dal (split black lentils)
+Fenugreek (methi) seeds
+Raw rice (chawal)
+Par-boiled rice (ukda chawal)
+</item>
+        <item>Chana dal, urad dal
+Coriander seeds
+Cumin/jeera
+Methi seeds
+Red chilies
+Grated fresh coconut
+Water to cook dal
+</item>
+        <item>Urad dal
+Raw rice
+Minced ginger
+Small onions (chopped)
+Chopped coriander leaves
+Chopped green chillies
+Salt to taste</item>
+        <item>Penne pasta
+Caesar dressing
+Worcestershire sauce
+Garlic powder
+Lemon juice
+Romaine lettuce, finely chopped, about 1 head
+Containergrape tomatoes
+Parmesan cheese, finely shredded
+Black pepper
+Chicken (grilled, diced or shredded)</item>
+        <item>6 Eggs
+Mayonnaise
+White vinegar
+Yellow mustard
+Salt
+Freshly ground black pepper
+Smoked Spanish paprika (garnish)
+Yorkshire Patties :
+</item>
+        <item>Dried New Mexico or guajillo chiles, stemmed, halved, seeded
+Shallots, halved
+Garlic cloves
+Ginger (peeled, sliced)
+Chopped cilantro stems
+Coriander
+Turmeric
+Curry powder
+Vegetable oil
+</item>
+        <item>Dried New Mexico or guajillo chiles, stemmed, halved, seeded
+Shallots, halved
+Garlic cloves
+Ginger (peeled, sliced)
+Chopped cilantro stems
+Coriander
+Turmeric
+Curry powder
+</item>
+        <item>Penne pasta
+Caesar dressing
+Worcestershire sauce
+Garlic powder
+Lemon juice
+Romaine lettuce, finely chopped, about 1 head
+
+ </item>
+        <item>Penne pasta
+Caesar dressing
+Worcestershire sauce
+Garlic powder
+Lemon juice
+
+ </item>
+        <item>6 Eggs
+Mayonnaise
+White vinegar
+Yellow mustard
+Salt
+Freshly ground black pepper
+Smoked Spanish paprika (garnish)
+</item>
+        <item>6 Eggs
+Mayonnaise
+White vinegar
+Yellow mustard
+Salt
+Freshly ground black pepper
+Smoked Spanish paprika (garnish)
+Yorkshire Patties :
+Vegetable oil
+Horseradish sauce
+Chopped onions fried a level below golden brown
+Coarsely chopped parsley
+Lamb minced
+Salt to taste</item>
+        <item>6 Eggs
+Mayonnaise
+White vinegar
+Yellow mustard
+Salt
+Freshly ground black pepper
+Smoked Spanish paprika (garnish)
+Yorkshire Patties :
+Vegetable oil
+Horseradish sauce
+Chopped onions fried a level below golden brown
+Coarsely chopped parsley
+Lamb minced
+Salt to taste</item>
+        <item>Penne pasta
+Caesar dressing
+Worcestershire sauce
+Garlic powder
+Lemon juice
+Romaine lettuce, finely chopped, about 1 head
+Containergrape tomatoes
+Parmesan cheese, finely shredded
+Black pepper
+Chicken (grilled, diced or shredded)
+ </item>
+        <item>6 Eggs
+Mayonnaise
+White vinegar
+Yellow mustard
+Salt
+Freshly ground black pepper
+Smoked Spanish paprika (garnish)
+Yorkshire Patties :
+Vegetable oil
+Horseradish sauce
+Chopped onions fried a level below golden brown
+Coarsely chopped parsley
+Lamb minced
+Salt to taste</item>
+        <item>Penne pasta
+Caesar dressing
+Worcestershire sauce
+Garlic powder
+Lemon juice
+Romaine lettuce, finely chopped, about 1 head
+Containergrape tomatoes
+Parmesan cheese, finely shredded
+Black pepper
+Chicken (grilled, diced or shredded)
+ </item>
+        <item>Penne pasta
+Caesar dressing
+Worcestershire sauce
+Garlic powder
+Lemon juice
+Romaine lettuce, finely chopped, about 1 head
+Containergrape tomatoes
+Parmesan cheese, finely shredded
+Black pepper
+Chicken (grilled, diced or shredded)
+ </item>
     </string-array>
 
 

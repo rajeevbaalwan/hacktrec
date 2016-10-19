@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 
 import in.curience.hacktrec.Models.MenuData;
@@ -50,6 +51,9 @@ public class SingleItem extends AppCompatActivity {
     private SharedPrefUtil sharedPrefUtil;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
+    private int position;
+    private Button showDesc;
+    private TextView actualDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,9 @@ public class SingleItem extends AppCompatActivity {
         setContentView(R.layout.activity_single_item);
 
         final MenuData item = (MenuData) getIntent().getSerializableExtra("details");
+        position = getIntent().getIntExtra("pos",0);
         setTitle(item.getItemName());
+
 
         this.imageLoader = ImageLoader.getInstance();
         this.options = new DisplayImageOptions.Builder()
@@ -70,15 +76,25 @@ public class SingleItem extends AppCompatActivity {
 
         initImageLoader(SingleItem.this);
 
+
+
+        actualDescription = (TextView) findViewById(R.id.actualDescription);
+
+        String [] ne = getResources().getStringArray(R.array.descarr);
+
+
+        actualDescription.setText(ne[position]);
+        showDesc = (Button) findViewById(R.id.showDescription);
         singleItemImage = (ImageView) findViewById(R.id.singleItemImage);
         imageLoader.displayImage(item.getImageUrl(),singleItemImage,options);
         itemPrice = (TextView) findViewById(R.id.item_price);
         itemDescription = (TextView) findViewById(R.id.item_description);
         sharedPrefUtil = new SharedPrefUtil(SingleItem.this);
         extraNeeds = (EditText)  findViewById(R.id.extraDemandsEditText);
-        itemPrice.setText(item.getItemPrice());
-        itemDescription.setText(Html.fromHtml("<b>"+item.getItemName()+"</b> <br>   "+item.getItemType()));
+        itemPrice.setText("₹ "+ item.getItemPrice());
 
+        itemDescription.setText(Html.fromHtml("<b>"+item.getItemName()+"</b> <br>   "+item.getItemType()));
+        itemDescription.setTypeface(UtilFunction.setNewTextStyle(SingleItem.this));
         initialiseOrderSocket();
 
         quantity = (Spinner) findViewById(R.id.item_quantity);
@@ -86,6 +102,13 @@ public class SingleItem extends AppCompatActivity {
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_dropdown_item);
         quantity.setAdapter(adapter);
 
+        showDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDesc.setVisibility(View.GONE);
+                actualDescription.setVisibility(View.VISIBLE);
+            }
+        });
         quantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

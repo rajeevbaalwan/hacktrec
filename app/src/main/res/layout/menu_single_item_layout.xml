@@ -8,10 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
-        android:elevation="10dp"
+        app:elevation="10dp"
+        android:backgroundTint="#4f303030"
+        android:backgroundTintMode="src_in"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="8dp"
+        android:background="#fff">
 
         <LinearLayout
             android:id="@+id/main_container"
@@ -68,6 +71,7 @@
                     android:id="@+id/item_name"
                     android:gravity="start"
                     android:text="Name"
+                    android:textColor="@android:color/white"
                     android:textSize="22sp"
                     android:padding="10dp"
                     android:textStyle="bold"
@@ -80,12 +84,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/item_type"
                     android:text="Type"
+                    android:textColor="@android:color/white"
                     android:layout_alignParentBottom="true"
                     android:textSize="15sp"
                     android:layout_toLeftOf="@+id/item_rating"
                     />
 
                 <View
+                    android:textColor="@android:color/white"
                     android:layout_width="2dp"
                     android:layout_height="15dp"
                     android:background="#c0c0c0"
@@ -98,12 +104,14 @@
                     android:id="@+id/item_rating"
                     android:text="Rating"
                     android:textSize="15sp"
+                    android:textColor="@android:color/white"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     />
 
                 <TextView
+                    android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/cooking_time"
@@ -115,6 +123,7 @@
                     android:gravity="center|bottom"
                     />
                 <View
+                    android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="#c0c0c0"

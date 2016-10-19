@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.curience.hacktrec.Activities.LandingActivity"
-    android:background="#6dced9">
+    >
 
     <ProgressBar
         android:layout_width="80dp"

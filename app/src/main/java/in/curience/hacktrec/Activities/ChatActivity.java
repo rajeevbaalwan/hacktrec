@@ -51,6 +51,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        setTitle("Mr Guide..");
         sendMessage  = new SendMessage();
         sendCodeRequest = new SendCodeRequest();
         try {

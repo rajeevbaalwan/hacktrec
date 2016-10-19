@@ -2,6 +2,7 @@ package in.curience.hacktrec.Utility;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.nfc.NfcAdapter;
@@ -65,5 +66,10 @@ public class UtilFunction {
         bitmap.compress(Bitmap.CompressFormat.JPEG,50,byteArrayOutputStream);
         byte [] bytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(bytes,Base64.DEFAULT);
+    }
+
+
+    public static Typeface setNewTextStyle(Context context){
+        return Typeface.createFromAsset(context.getAssets(),"Sofia-Regular.otf");
     }
 }

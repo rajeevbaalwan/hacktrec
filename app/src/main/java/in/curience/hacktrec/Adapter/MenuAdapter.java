@@ -18,6 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.File;
@@ -26,6 +27,7 @@ import java.util.List;
 import in.curience.hacktrec.Activities.SingleItem;
 import in.curience.hacktrec.Models.MenuData;
 import in.curience.hacktrec.R;
+import in.curience.hacktrec.Utility.UtilFunction;
 
 /**
  * Created by RAJEEV YADAV on 10/16/2016.
@@ -46,6 +48,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
                 .showImageOnFail(android.R.drawable.alert_dark_frame)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                .displayer(new RoundedBitmapDisplayer(10))
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();
@@ -60,37 +63,17 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
 
-        holder.progressBar.setVisibility(View.VISIBLE);
-        holder.itemPrice.setVisibility(View.GONE);
+        holder.progressBar.setVisibility(View.GONE);
+        holder.itemPrice.setVisibility(View.VISIBLE);
 
         holder.itemName.setText(data.get(position).getItemName());
+        holder.itemName.setTypeface(UtilFunction.setNewTextStyle(context));
         holder.itemPrice.setText(""+data.get(position).getItemPrice());
         holder.itemType.setText(data.get(position).getItemType());
         holder.ratingText.setText("Rating :"+data.get(position).getItemRating());
         holder.cookingTime.setText("Cooking Time :"+data.get(position).getAvgTime());
-        imageLoader.displayImage(data.get(position).getImageUrl(), holder.itemPic, options, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String s, View view) {
-                holder.progressBar.setVisibility(View.VISIBLE);
-                holder.itemPrice.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                holder.progressBar.setVisibility(View.GONE);
-                holder.itemPrice.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-
-            }
-        });
+        holder.itemPic.setImageBitmap(null);
+        imageLoader.displayImage(data.get(position).getImageUrl(), holder.itemPic, options);
         final int pos = position;
         holder.clickableLayout.setOnClickListener(new View.OnClickListener() {
             @Override

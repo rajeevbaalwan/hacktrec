@@ -65,8 +65,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
 
         holder.itemName.setText(data.get(position).getItemName());
         holder.itemPrice.setText(""+data.get(position).getItemPrice());
-        holder.itemType.setText("Type: "+data.get(position).getItemType());
-        holder.ratingText.setText("Rating : 3.5");
+        holder.itemType.setText(data.get(position).getItemType());
+        holder.ratingText.setText("Rating :"+data.get(position).getItemRating());
+        holder.cookingTime.setText("Cooking Time :"+data.get(position).getAvgTime());
         imageLoader.displayImage(data.get(position).getImageUrl(), holder.itemPic, options, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
@@ -112,6 +113,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
         private ImageView itemPic;
         private TextView itemName;
         private TextView itemType;
+        private TextView cookingTime;
         private TextView itemPrice;
         private LinearLayout clickableLayout;
         private ProgressBar progressBar;
@@ -127,6 +129,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ItemViewHolder
             clickableLayout = (LinearLayout) itemView.findViewById(R.id.main_container);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
             ratingText = (TextView) itemView.findViewById(R.id.item_rating);
+            cookingTime= (TextView) itemView.findViewById(R.id.cooking_time);
 
         }
 

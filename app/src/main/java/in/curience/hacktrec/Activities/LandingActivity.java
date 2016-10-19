@@ -83,7 +83,7 @@ public class LandingActivity extends AppCompatActivity {
         socket.on(Constants.EVENT_MENU_RESPONSE, new Emitter.Listener() {
             @Override
             public void call(final Object... args) {
-
+            Log.d(TAG,args[0].toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -93,6 +93,7 @@ public class LandingActivity extends AppCompatActivity {
                             menuAdapter.changeList(getMenuFromJson(((JSONObject) args[0]).getJSONArray("menu")));
                         }catch(JSONException e){
                             Log.d(TAG,"Error in json parsing from sockets......");
+                            e.printStackTrace();
                         }
                         progressBar.setVisibility(View.GONE);
 
@@ -229,7 +230,7 @@ public class LandingActivity extends AppCompatActivity {
             String type = jsonObject.getString("type");
             String price = jsonObject.getString("price");
             int id = jsonObject.getInt("id");
-            String time = jsonObject.getString("cookingitem");
+            String time = jsonObject.getString("cookingtime");
             String rating = jsonObject.getString("rating");
 
             datas.add(new MenuData(id,imageUrl,name,type,price,rating,time));

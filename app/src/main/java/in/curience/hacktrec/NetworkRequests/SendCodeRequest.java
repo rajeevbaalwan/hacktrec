@@ -49,7 +49,7 @@ public class SendCodeRequest {
                     JSONObject jsonObject = new JSONObject(responseString);
                     Log.d(TAG,""+jsonObject);
 
-                    messageReceived.onMessageReceived(new ChatMessage(responseString,UtilFunction.getCurrentTime(),Constants.IS_RECEIVED,Constants.TYPE_MESSAGE_TEXT));
+                    messageReceived.onMessageReceived(new ChatMessage(convertToJson(jsonObject),UtilFunction.getCurrentTime(),Constants.IS_RECEIVED,Constants.TYPE_MESSAGE_TEXT));
                   /*  if (jsonObject.has("status")){
 
 
@@ -75,5 +75,20 @@ public class SendCodeRequest {
                 }
             }
         });
+    }
+
+    private String convertToJson(JSONObject jsonObject) throws JSONException{
+        String id = jsonObject.getString("item_id");
+        String item_name = jsonObject.getString("item_name");
+        String brand_name = jsonObject.getString("brand_name");
+        String ingredients = jsonObject.getString("nf_ingredient_statement");
+        int calories = jsonObject.getInt("nf_calories");
+
+        int sodium = jsonObject.getInt("nf_sodium");
+        int carbohydrates = jsonObject.getInt("nf_total_carbohydrate");
+
+        String fin = "";
+
+        return fin;
     }
 }

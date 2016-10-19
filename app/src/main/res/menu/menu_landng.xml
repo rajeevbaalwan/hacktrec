@@ -14,5 +14,5 @@
         android:id="@+id/myorders"
         app:showAsAction="always"
         android:title="my_order"
-        android:icon="@drawable/my_order"/>
+        android:icon="@drawable/my_order" />
 </menu>

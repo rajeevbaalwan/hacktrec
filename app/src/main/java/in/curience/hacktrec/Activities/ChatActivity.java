@@ -21,6 +21,7 @@ import in.curience.hacktrec.Adapter.ChatAdapter;
 import in.curience.hacktrec.Callbacks.MessageReceived;
 import in.curience.hacktrec.Db.DbHelper;
 import in.curience.hacktrec.Models.ChatMessage;
+import in.curience.hacktrec.NetworkRequests.SendCodeRequest;
 import in.curience.hacktrec.NetworkRequests.SendMessage;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
@@ -39,6 +40,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
     private DbHelper dbHelper;
     private Socket socket;
     private SendMessage sendMessage;
+    private SendCodeRequest sendCodeRequest;
 
 
 
@@ -50,6 +52,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         setContentView(R.layout.activity_chat);
 
         sendMessage  = new SendMessage();
+        sendCodeRequest = new SendCodeRequest();
         try {
             socket = IO.socket(Constants.SOCKETS_SERVER);
             socket.connect();
@@ -111,6 +114,14 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
 
                 String message = messageEditText.getText().toString();
                 messageEditText.setText(null);
+                if(message.charAt(0) == '#'){
+                    chatAdapter.addMessage(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
+                    dbHelper.addMessageToDb(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
+
+                    sendCodeRequest.sendRequestToApi(message.substring(1),ChatActivity.this);
+
+                    return;
+                }
 
                 if (message.length()!=0){
 

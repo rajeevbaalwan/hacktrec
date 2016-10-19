@@ -229,8 +229,10 @@ public class LandingActivity extends AppCompatActivity {
             String type = jsonObject.getString("type");
             String price = jsonObject.getString("price");
             int id = jsonObject.getInt("id");
+            String time = jsonObject.getString("cookingitem");
+            String rating = jsonObject.getString("rating");
 
-            datas.add(new MenuData(id,imageUrl,name,type,price));
+            datas.add(new MenuData(id,imageUrl,name,type,price,rating,time));
         }
 
         return datas;

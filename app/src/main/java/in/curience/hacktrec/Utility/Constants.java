@@ -25,6 +25,8 @@ public class Constants {
     public static final String EVENT_SEND_ORDER = "send_order";
     public static final String EVENT_PAYMENT_REQUEST = "user_payment_request";
     public static final MediaType TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final String APP_ID = "de63a08b";
+    public static final String API_KEY = "9d459e7736fba48ae331b52869bf1beb";
 
 
 

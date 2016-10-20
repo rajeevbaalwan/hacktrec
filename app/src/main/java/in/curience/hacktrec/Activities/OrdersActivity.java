@@ -68,6 +68,15 @@ public class OrdersActivity extends AppCompatActivity {
                         tax.setText("₹ "+taxValue);
                         totalAmount.setText("₹ "+taxValue);
                         sharedPrefUtil.clearData();
+
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("tableid", sharedPrefUtil.getTableId());
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+                        socket.emit(Constants.EVENT_ORDER_COMPLETED,jsonObject);
                         OrdersActivity.this.finish();
 
                     }

@@ -27,6 +27,8 @@ public class Constants {
     public static final MediaType TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     public static final String APP_ID = "de63a08b";
     public static final String API_KEY = "9d459e7736fba48ae331b52869bf1beb";
+    public static final String ZOMATO_API_KEY = "b8e14f8451c9f9813135a7193b3793bb";
+    public static final String EVENT_ORDER_COMPLETED = "order_completed";
 
 
 

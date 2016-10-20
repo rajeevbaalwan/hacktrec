@@ -22,6 +22,7 @@ import in.curience.hacktrec.Callbacks.MessageReceived;
 import in.curience.hacktrec.Db.DbHelper;
 import in.curience.hacktrec.Models.ChatMessage;
 import in.curience.hacktrec.NetworkRequests.SendCodeRequest;
+import in.curience.hacktrec.NetworkRequests.SendLocationRequest;
 import in.curience.hacktrec.NetworkRequests.SendMessage;
 import in.curience.hacktrec.R;
 import in.curience.hacktrec.Utility.Constants;
@@ -41,10 +42,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
     private Socket socket;
     private SendMessage sendMessage;
     private SendCodeRequest sendCodeRequest;
-
-
-
-
+    private SendLocationRequest sendLocationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +52,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
         setTitle("Mr Guide..");
         sendMessage  = new SendMessage();
         sendCodeRequest = new SendCodeRequest();
+        sendLocationRequest = new SendLocationRequest();
         try {
             socket = IO.socket(Constants.SOCKETS_SERVER);
             socket.connect();
@@ -115,6 +114,29 @@ public class ChatActivity extends AppCompatActivity implements MessageReceived {
 
                 String message = messageEditText.getText().toString();
                 messageEditText.setText(null);
+
+                if (message.contains("girlfriend") || message.contains("gf") ){
+                    chatAdapter.addMessage(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
+                    dbHelper.addMessageToDb(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
+
+                    sendLocationRequest.sendRequestToApi(1,ChatActivity.this);
+
+                    return;
+
+                }
+
+                if (message.contains("hungry")){
+
+                    chatAdapter.addMessage(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
+                    dbHelper.addMessageToDb(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
+
+                    sendLocationRequest.sendRequestToApi(0,ChatActivity.this);
+
+                    return;
+                }
+
+
+
                 if(message.charAt(0) == '#'){
                     chatAdapter.addMessage(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));
                     dbHelper.addMessageToDb(new ChatMessage(message,UtilFunction.getCurrentTime(),Constants.IS_SENDED,Constants.TYPE_MESSAGE_TEXT));

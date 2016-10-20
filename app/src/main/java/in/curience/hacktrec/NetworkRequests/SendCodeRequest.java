@@ -84,10 +84,12 @@ public class SendCodeRequest {
         String ingredients = jsonObject.getString("nf_ingredient_statement");
         int calories = jsonObject.getInt("nf_calories");
 
-        int sodium = jsonObject.getInt("nf_sodium");
+
         int carbohydrates = jsonObject.getInt("nf_total_carbohydrate");
 
         String fin = "";
+
+        fin += "id : "+id +"\n"+"Name : "+item_name+"\nBrand : "+brand_name+"\n Ingredients : "+ingredients+"Calories : "+calories+"\n Carbohydrates : "+carbohydrates;
 
         return fin;
     }

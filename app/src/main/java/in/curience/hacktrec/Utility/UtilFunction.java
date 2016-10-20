@@ -11,9 +11,21 @@ import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * Created by Brekkishhh on 11-08-2016.
@@ -71,5 +83,58 @@ public class UtilFunction {
 
     public static Typeface setNewTextStyle(Context context){
         return Typeface.createFromAsset(context.getAssets(),"Sofia-Regular.otf");
+    }
+
+    public static JSONObject postJSONObject(String completeUrl, JSONObject jsonObject)
+    {
+        DataOutputStream dataOutputStream;
+        InputStream is;
+        String jsonstring1 ="";
+        JSONObject jsonObject1= null;
+
+        JSONObject j = new JSONObject();
+
+
+
+        try{
+            String jsonstring = jsonObject.toString();
+            URL url = new URL(completeUrl);
+            HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setConnectTimeout(15000);
+            httpURLConnection.setReadTimeout(15000);
+            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+            httpURLConnection.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+            dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+            dataOutputStream.write(jsonstring.getBytes());
+            dataOutputStream.flush();
+            dataOutputStream.close();
+
+            int httpResult = httpURLConnection.getResponseCode();
+
+            if(httpResult==HttpURLConnection.HTTP_OK) {
+                is = new BufferedInputStream(httpURLConnection.getInputStream());
+                Scanner s = new Scanner(is).useDelimiter("\\A");
+                if (s.hasNext()) {
+                    jsonstring1 = s.next();
+                }
+            }
+
+        }catch(MalformedURLException e){
+            Log.d("error","malformedUrl in Post");
+        }catch (IOException e){
+            Log.d("error","IOException in Post");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        Log.d("Error","error is:"+jsonstring1);
+
+
+        return jsonObject1;
     }
 }
